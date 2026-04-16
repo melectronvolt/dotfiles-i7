@@ -122,7 +122,24 @@ window#waybar {
     border-radius: 6px;
 }
 
+
+
+/* Bluetooth en bleu (convention universelle) */
 #bluetooth {
+    padding: 0 12px;
+    margin: 5px 2px;
+    background: @mantle;
+    border-radius: 6px;
+    color: #89b4fa;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: @overlay0;
+}
+
+/* Network (ethernet/wifi) en accent */
+#network {
     padding: 0 12px;
     margin: 5px 2px;
     background: @mantle;
@@ -130,7 +147,26 @@ window#waybar {
     color: @accent;
 }
 
-#bluetooth.disabled,
-#bluetooth.off {
+#network.disconnected {
+    color: @red;
+}
+
+/* VPN custom : vert si connecté, rouge si déconnecté */
+#custom-vpn {
+    padding: 0 12px;
+    margin: 5px 2px;
+    background: @mantle;
+    border-radius: 6px;
+}
+
+#custom-vpn.connected {
+    color: @green;
+}
+
+#custom-vpn.disconnected {
+    color: @red;
+}
+
+#custom-vpn.absent {
     color: @overlay0;
 }

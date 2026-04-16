@@ -1,7 +1,6 @@
 {
     "layer": "top",
     "position": "top",
-    "output": "DP-1",
     "height": 40,
     "spacing": 6,
     "margin-top": 6,
@@ -10,7 +9,7 @@
 
     "modules-left":   ["sway/workspaces", "sway/mode", "sway/window"],
     "modules-center": ["clock"],
-    "modules-right":  ["temperature", "cpu", "memory", "pulseaudio", "tray"],
+    "modules-right":  ["temperature", "cpu", "memory", "pulseaudio", "network", "custom/vpn", "bluetooth", "tray"],
 
     "sway/workspaces": {
         "disable-scroll": true,
@@ -63,8 +62,40 @@
         "scroll-step": 5
     },
 
+    "bluetooth": {
+        "format":           "\uf293",
+        "format-connected": "\uf293  {num_connections}",
+        "format-disabled":  "\uf294",
+        "format-off":       "\uf294",
+        "tooltip-format":           "Bluetooth actif",
+        "tooltip-format-connected": "{num_connections} appareil(s)\n{device_enumerate}",
+        "tooltip-format-enumerate-connected": "{device_alias}",
+        "tooltip-format-disabled":  "Bluetooth desactive",
+        "tooltip-format-off":       "Bluetooth eteint",
+        "on-click": "blueman-manager"
+    },
+
+    "network": {
+        "format-wifi":         "{icon}  {signalStrength}%",
+        "format-ethernet":     "\udb82\udf90",
+        "format-disconnected": "\uf6ac",
+        "format-icons":        ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
+        "tooltip-format-wifi":         "{essid}\n{ifname}  \u00b7  {ipaddr}",
+        "tooltip-format-ethernet":     "{ifname}\n{ipaddr}",
+        "tooltip-format-disconnected": "Deconnecte",
+        "on-click":            "nm-connection-editor"
+    },
+
+    "custom/vpn": {
+        "exec": "~/.local/bin/vpn-status",
+        "interval": 3,
+        "return-type": "json",
+        "on-click": "~/.local/bin/vpn-toggle",
+        "tooltip": true
+    },
+
     "tray": {
-        "icon-size": 18,
-        "spacing": 10
+        "icon-size": 16,
+        "spacing": 8
     }
 }
