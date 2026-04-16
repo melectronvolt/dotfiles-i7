@@ -185,7 +185,7 @@ bindsym --to-code $mod+space      focus mode_toggle
 bindsym --to-code $mod+a          focus parent
 
 bindsym $mod+Shift+less move scratchpad
-bindsym $mod+less scratchpad show
+bindsym $mod+less exec ~/.local/bin/scratchpad-smart
 
 mode "resize" {
     bindsym --to-code Left     resize shrink width 10px

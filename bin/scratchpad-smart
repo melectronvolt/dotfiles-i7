@@ -1,0 +1,10 @@
+#!/bin/bash
+# Si scratchpad vide → envoie la fenêtre focus dedans
+# Sinon → toggle show/hide
+count=$(swaymsg -t get_tree | jq '[.. | objects | select(.name? == "__i3_scratch") | .floating_nodes[]] | length')
+
+if [ "$count" -eq 0 ]; then
+    swaymsg move scratchpad
+else
+    swaymsg scratchpad show
+fi
