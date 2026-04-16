@@ -1,0 +1,14 @@
+#!/bin/bash
+options="  Lock
+󰗽  Logout
+  Reboot
+  Shutdown"
+
+choice=$(echo -e "$options" | wofi --dmenu --prompt "Power" --width 300 --height 240 --cache-file /dev/null)
+
+case "$choice" in
+    *Lock*)      ~/.local/bin/sway-lock ;;
+    *Logout*)    swaymsg exit ;;
+    *Reboot*)    systemctl reboot ;;
+    *Shutdown*)  systemctl poweroff ;;
+esac

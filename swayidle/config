@@ -1,0 +1,5 @@
+# Desktop i7 : pas de suspend/hibernate (hardware capricieux)
+# Seulement DPMS off apres 10 min d'inactivite.
+# Pas de lock automatique : utiliser Super+L manuellement ou power-menu.
+
+timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
