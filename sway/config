@@ -137,19 +137,11 @@ bindsym --to-code $mod+Left       focus left
 bindsym --to-code $mod+Down       focus down
 bindsym --to-code $mod+Up         focus up
 bindsym --to-code $mod+Right      focus right
-bindsym --to-code $mod+h          focus left
-bindsym --to-code $mod+j          focus down
-bindsym --to-code $mod+k          focus up
-bindsym $mod+l          focus right
 
 bindsym --to-code $mod+Shift+Left    move left
 bindsym --to-code $mod+Shift+Down    move down
 bindsym --to-code $mod+Shift+Up      move up
 bindsym --to-code $mod+Shift+Right   move right
-bindsym --to-code $mod+Shift+h       move left
-bindsym --to-code $mod+Shift+j       move down
-bindsym --to-code $mod+Shift+k       move up
-bindsym --to-code $mod+Shift+l       move right
 
 bindsym $mod+ampersand workspace number 1
 bindsym $mod+eacute workspace number 2
@@ -266,3 +258,6 @@ bindsym --to-code $mod+Shift+a     exec ~/.local/bin/screenshot edit
 
 # Waybar : relance propre à chaque reload Sway
 exec_always pkill waybar; sleep 0.3 && waybar
+
+# Logout
+bindsym $mod+Shift+l exec swaynag -t warning -m "Logout?" -B "Yes" "swaymsg exit"
