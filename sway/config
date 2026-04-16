@@ -237,6 +237,14 @@ workspace 7 output HDMI-A-1
 workspace 8 output HDMI-A-1
 workspace 9 output HDMI-A-1
 workspace 10 output HDMI-A-1
+exec_always gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+exec_always gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+exec_always gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+exec_always gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+exec_always gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+exec_always gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
+exec_always gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+exec_always gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark
 exec swayidle -w -C ~/.config/swayidle/config
 bindsym --to-code $mod+Ctrl+Right exec swaymsg "move container to output right"
 bindsym --to-code $mod+Ctrl+Left  exec swaymsg "move container to output left"
@@ -259,5 +267,4 @@ bindsym --to-code $mod+Shift+a     exec ~/.local/bin/screenshot edit
 exec_always pkill waybar; sleep 0.3 && waybar
 
 # Logout
-bindsym --to-code $mod+l exec ~/.local/bin/sway-lock
 bindsym --to-code $mod+l exec ~/.local/bin/sway-lock
