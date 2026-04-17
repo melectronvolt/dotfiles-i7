@@ -107,7 +107,7 @@ layer_effects "waybar" blur enable; blur_ignore_transparent enable; shadows enab
 # AUTOSTART
 ###############################################################################
 
-exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Adwaita:dark
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway GTK_THEME=Adwaita:dark GTK_THEME=Adwaita:dark
 
 # Agent polkit (remplace polkit-gnome retiré de Fedora 41+)
 exec lxpolkit
@@ -264,3 +264,10 @@ for_window [app_id="looking-glass-client"] inhibit_idle focus
 
 # Dark theme GTK
 exec_always sh -c 'gsettings set org.gnome.desktop.interface color-scheme prefer-dark; gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark'
+
+# Dark theme GTK
+exec_always sh -c 'gsettings set org.gnome.desktop.interface color-scheme prefer-dark; gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark'
+
+# ---- Obsidian au démarrage dans le scratchpad ----
+exec env LC_ALL=fr_FR.UTF-8 /home/remi/.local/opt/obsidian/obsidian
+for_window [app_id="obsidian"] move scratchpad, resize set width 90ppt height 85ppt
