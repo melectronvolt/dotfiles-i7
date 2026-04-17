@@ -173,7 +173,6 @@ bindsym --to-code $mod+e          layout toggle split
 bindsym --to-code $mod+Ctrl+e     exec foot -a yazi-files -c ~/.config/foot/yazi.ini yazi
 bindsym --to-code $mod+f          fullscreen
 bindsym --to-code $mod+Shift+space floating toggle
-bindsym --to-code $mod+space      focus mode_toggle
 bindsym --to-code $mod+a          focus parent
 
 bindsym $mod+Shift+less move scratchpad
@@ -268,3 +267,4 @@ exec_always sh -c 'pkill waybar; sleep 0.3; waybar'
 
 # Logout
 bindsym --to-code $mod+l exec ~/.local/bin/sway-lock
+bindsym --to-code $mod+space exec pkill wofi || wofi --show drun
