@@ -268,3 +268,4 @@ exec_always sh -c 'pkill waybar; sleep 0.3; waybar'
 # Logout
 bindsym --to-code $mod+l exec ~/.local/bin/sway-lock
 bindsym --to-code $mod+space exec pkill wofi || wofi --show drun
+for_window [app_id="looking-glass-client"] inhibit_idle focus
