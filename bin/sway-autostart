@@ -1,0 +1,37 @@
+#!/bin/bash
+# Lance les apps de démarrage sur les bons workspaces
+# Les apps avec app_id unique sont gérées par assign dans sway/config
+# Firefox et foot nécessitent un lancement séquentiel
+
+sleep 2  # attendre que Sway soit prêt
+
+# Apps avec assign (elles vont automatiquement sur le bon workspace)
+~/.local/bin/obsidian &
+flatpak run com.todoist.Todoist &
+proton-mail &
+qbz &
+
+# Workspace 2 : 2 Firefox horizontal
+swaymsg 'workspace 2'
+sleep 0.5
+firefox &
+sleep 2
+firefox &
+sleep 2
+
+# Workspace 7 : 1 Firefox
+swaymsg 'workspace 7'
+sleep 0.5
+firefox &
+sleep 2
+
+# Workspace 6 : 2 foot vertical
+swaymsg 'workspace 6; splitv'
+sleep 0.5
+foot &
+sleep 1
+foot &
+sleep 1
+
+# Retour au workspace 1
+swaymsg 'workspace 1'
