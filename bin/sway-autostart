@@ -6,7 +6,7 @@
 sleep 2  # attendre que Sway soit prêt
 
 # Apps avec assign (elles vont automatiquement sur le bon workspace)
-~/.local/bin/obsidian &
+env LC_ALL=fr_FR.UTF-8 /home/remi/.local/opt/obsidian/obsidian &
 flatpak run com.todoist.Todoist &
 proton-mail &
 qbz &
