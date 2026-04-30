@@ -20,23 +20,29 @@ pip_id="$(
 
 [[ -n "$pip_id" ]] || exit 0
 
-read ox oy ow oh < <(
-    swaymsg -t get_outputs | jq -r --arg out "$output" '
-        map(select(.active and .name == $out))[0] as $o
-        | "\($o.rect.x) \($o.rect.y) \($o.rect.width) \($o.rect.height)"
+# Mettre le PiP sur DP-1 et le rendre flottant/sticky.
+swaymsg "[con_id=${pip_id}] floating enable, sticky enable, border pixel 1" >/dev/null
+swaymsg "[con_id=${pip_id}] move container to output ${output}" >/dev/null || true
+swaymsg "[con_id=${pip_id}] resize set width ${pip_w} px height ${pip_h} px" >/dev/null
+
+sleep 0.05
+
+# IMPORTANT :
+# move position x y est relatif à la zone utile du workspace,
+# pas aux coordonnées globales de l'écran.
+read wx wy ww wh < <(
+    swaymsg -t get_workspaces | jq -r --arg out "$output" '
+        map(select(.visible and .output == $out))[0] as $w
+        | "\($w.rect.x) \($w.rect.y) \($w.rect.width) \($w.rect.height)"
     '
 )
 
-[[ -n "${ox:-}" && "$ox" != "null" ]] || exit 0
+[[ -n "${ww:-}" && "$ww" != "null" ]] || exit 0
 
-x=$((ox + ow - pip_w - margin))
-y=$((oy + oh - pip_h - margin))
+x=$((ww - pip_w - margin))
+y=$((wh - pip_h - margin))
 
-# Deux passes : le move-to-output peut recentrer/replacer la fenêtre.
-swaymsg "[con_id=${pip_id}] move container to output ${output}" >/dev/null
-sleep 0.05
+(( x < 0 )) && x=0
+(( y < 0 )) && y=0
 
-swaymsg "[con_id=${pip_id}] floating enable, sticky enable, border pixel 1, resize set width ${pip_w} px height ${pip_h} px" >/dev/null
-sleep 0.05
-
-swaymsg "[con_id=${pip_id}] move absolute position ${x} px ${y} px" >/dev/null
+swaymsg "[con_id=${pip_id}] move position ${x} ${y}" >/dev/null
