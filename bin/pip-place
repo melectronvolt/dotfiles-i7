@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# i7 setup:
+# DP-1 = écran principal, 2560x1440, position 0 240
+output="DP-1"
+pip_w=640
+pip_h=360
+margin=24
+
+# Titres possibles selon navigateur/langue
+title_re="Picture-in-Picture|Picture in picture|Image dans l.?image|Picture-in-picture"
+
+# Trouve la dernière fenêtre PiP visible
+pip_id="$(
+    swaymsg -t get_tree | jq -r --arg re "$title_re" '
+        [
+            recurse(.nodes[]?, .floating_nodes[]?)
+            | select((.name // "") | test($re; "i"))
+            | .id
+        ] | last // empty
+    '
+)"
+
+[ -n "$pip_id" ] || exit 0
+
+# Récupère la géométrie de DP-1
+read ox oy ow oh < <(
+    swaymsg -t get_outputs | jq -r --arg out "$output" '
+        map(select(.active and .name == $out))[0] as $o
+        | "\($o.rect.x) \($o.rect.y) \($o.rect.width) \($o.rect.height)"
+    '
+)
+
+[ -n "${ox:-}" ] || exit 0
+[ "$ox" != "null" ] || exit 0
+
+x=$((ox + ow - pip_w - margin))
+y=$((oy + oh - pip_h - margin))
+
+# Applique le comportement désiré
+swaymsg "[con_id=${pip_id}] floating enable" >/dev/null
+swaymsg "[con_id=${pip_id}] sticky enable" >/dev/null
+swaymsg "[con_id=${pip_id}] border pixel 1" >/dev/null
+swaymsg "[con_id=${pip_id}] resize set width ${pip_w} px" >/dev/null
+swaymsg "[con_id=${pip_id}] resize set height ${pip_h} px" >/dev/null
+swaymsg "[con_id=${pip_id}] move container to output ${output}" >/dev/null
+swaymsg "[con_id=${pip_id}] move position ${x} ${y}" >/dev/null

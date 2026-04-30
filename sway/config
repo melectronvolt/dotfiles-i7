@@ -176,7 +176,7 @@ bindsym --to-code $mod+Shift+space floating toggle
 bindsym --to-code $mod+a          focus parent
 
 bindsym $mod+Shift+less move scratchpad
-bindsym $mod+less exec ~/.local/bin/scratchpad-smart
+bindsym $mod+less exec ~/.local/bin/obsidian-toggle
 
 mode "resize" {
     bindsym --to-code Left     resize shrink width 10px
@@ -278,3 +278,15 @@ assign [app_id="Todoist"] workspace 9
 
 # ---- Autostart apps ----
 exec ~/.local/bin/sway-autostart
+
+# BEGIN PIP RULES
+# Brave / Chromium / Firefox Picture-in-Picture
+# Fenêtre flottante, sticky, replacée automatiquement en bas à droite de DP-1.
+for_window [title="^(Picture-in-Picture|Picture in picture|Image dans l.?image|Picture-in-picture)$"] floating enable, sticky enable, border pixel 1, exec ~/.local/bin/pip-place
+
+# Ne pas voler le focus quand le PiP apparaît.
+no_focus [title="^(Picture-in-Picture|Picture in picture|Image dans l.?image|Picture-in-picture)$"]
+
+# Raccourci manuel de secours pour replacer le PiP.
+bindsym --to-code $mod+Shift+p exec ~/.local/bin/pip-place
+# END PIP RULES
