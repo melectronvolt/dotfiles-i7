@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+STATE="${XDG_RUNTIME_DIR:-/tmp}/obsidian-toggle-prev-workspace"
+
+current_ws="$(swaymsg -t get_workspaces | jq -r '.[] | select(.focused).name')"
+
+# Si on est déjà sur le workspace 5, on retourne au workspace précédent.
+if [[ "$current_ws" == "5" ]]; then
+    if [[ -s "$STATE" ]]; then
+        prev_ws="$(cat "$STATE")"
+        [[ -z "$prev_ws" || "$prev_ws" == "5" ]] && prev_ws="1"
+    else
+        prev_ws="1"
+    fi
+
+    swaymsg "workspace number $prev_ws" >/dev/null
+    exit 0
+fi
+
+# Sinon on mémorise le workspace courant.
+printf '%s\n' "$current_ws" > "$STATE"
+
+# Lance Obsidian si nécessaire.
+if ! pgrep -u "$USER" -f '/home/remi/.local/opt/obsidian/obsidian' >/dev/null; then
+    env LC_ALL=fr_FR.UTF-8 /home/remi/.local/opt/obsidian/obsidian >/dev/null 2>&1 &
+    sleep 1
+fi
+
+# Va sur le workspace 5 et focus Obsidian.
+swaymsg 'workspace number 5' >/dev/null
+
+for _ in {1..20}; do
+    swaymsg '[app_id="obsidian"] focus' >/dev/null 2>&1 && exit 0
+    sleep 0.2
+done
