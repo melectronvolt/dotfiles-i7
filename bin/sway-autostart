@@ -1,7 +1,7 @@
 #!/bin/bash
 # Lance les apps de démarrage sur les bons workspaces
 # Les apps avec app_id unique sont gérées par assign dans sway/config
-# Firefox et foot nécessitent un lancement séquentiel
+# Brave Origin Nightly et foot nécessitent un lancement séquentiel
 
 sleep 2  # attendre que Sway soit prêt
 
@@ -11,18 +11,18 @@ flatpak run com.todoist.Todoist &
 proton-mail &
 qbz &
 
-# Workspace 2 : 2 Firefox horizontal
+# Workspace 2 : 2 Brave Origin Nightly horizontal
 swaymsg 'workspace 2'
 sleep 0.5
-firefox &
+/usr/bin/brave-origin-nightly --new-window &
 sleep 2
-firefox &
+/usr/bin/brave-origin-nightly --new-window &
 sleep 2
 
-# Workspace 7 : 1 Firefox
+# Workspace 7 : 1 Brave Origin Nightly
 swaymsg 'workspace 7'
 sleep 0.5
-firefox &
+/usr/bin/brave-origin-nightly --new-window &
 sleep 2
 
 # Workspace 6 : 2 foot vertical
