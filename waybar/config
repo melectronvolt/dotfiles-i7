@@ -1,108 +1,122 @@
 {
-    "layer": "top",
-    "position": "top",
-    "output": "DP-1",
-    "height": 40,
-    "spacing": 6,
-    "margin-top": 6,
-    "margin-left": 10,
-    "margin-right": 10,
-
-    "modules-left":   ["sway/workspaces", "sway/mode", "sway/window"],
-    "modules-center": ["clock"],
-    "modules-right":  ["temperature", "cpu", "memory", "pulseaudio", "network", "custom/vpn", "bluetooth", "custom/power", "tray"],
-
-    "sway/workspaces": {
-        "disable-scroll": true,
-        "all-outputs": true,
-        "format": "{name}"
+  "layer": "top",
+  "position": "top",
+  "output": "DP-1",
+  "height": 40,
+  "spacing": 6,
+  "margin-top": 6,
+  "margin-left": 10,
+  "margin-right": 10,
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode",
+    "sway/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "temperature",
+    "cpu",
+    "memory",
+    "pulseaudio",
+    "network",
+    "custom/vpn",
+    "bluetooth",
+    "custom/power",
+    "tray"
+  ],
+  "sway/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+  "sway/mode": {
+    "format": "<span style=\"italic\">\uf0ad {}</span>",
+    "tooltip": false
+  },
+  "sway/window": {
+    "format": "{title}",
+    "max-length": 60,
+    "tooltip": false
+  },
+  "clock": {
+    "interval": 10,
+    "format": "\uf073  {:%H:%M    %a %d %b}",
+    "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
+  },
+  "cpu": {
+    "interval": 2,
+    "format": "\uf2db  {usage}%",
+    "tooltip": false
+  },
+  "memory": {
+    "interval": 5,
+    "format": "\uf233  {used:0.1f}G"
+  },
+  "temperature": {
+    "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
+    "input-filename": "temp1_input",
+    "critical-threshold": 85,
+    "interval": 3,
+    "format": "\uf2c9 {temperatureC}\u00b0C",
+    "format-critical": "\uf071 {temperatureC}\u00b0C"
+  },
+  "pulseaudio": {
+    "format": "{icon}  {volume}%",
+    "format-muted": "\uf026",
+    "format-icons": {
+      "default": [
+        "\uf026",
+        "\uf027",
+        "\uf028"
+      ]
     },
-
-    "sway/mode": {
-        "format": "<span style=\"italic\">\uf0ad {}</span>",
-        "tooltip": false
-    },
-
-    "sway/window": {
-        "format": "{title}",
-        "max-length": 60,
-        "tooltip": false
-    },
-
-    "clock": {
-        "interval": 10,
-        "format": "\uf073  {:%H:%M    %a %d %b}",
-        "tooltip-format": "<big>{:%B %Y}</big>\n<tt><small>{calendar}</small></tt>"
-    },
-
-    "cpu": {
-        "interval": 2,
-        "format": "\uf2db  {usage}%",
-        "tooltip": false
-    },
-
-    "memory": {
-        "interval": 5,
-        "format": "\uefc5  {used:0.1f}G"
-    },
-
-    "temperature": {
-        "hwmon-path-abs": "/sys/devices/platform/coretemp.0/hwmon",
-        "input-filename": "temp1_input",
-        "critical-threshold": 85,
-        "interval": 3,
-        "format": "\uf2c9 {temperatureC}\u00b0C",
-        "format-critical": "\uf769 {temperatureC}\u00b0C"
-    },
-
-    "pulseaudio": {
-        "format": "{icon}  {volume}%",
-        "format-muted": "\uf6a9  muted",
-        "format-icons": { "default": ["\uf026", "\uf027", "\uf028"] },
-        "on-click": "pavucontrol",
-        "scroll-step": 5
-    },
-
-    "bluetooth": {
-        "format":           "\uf293",
-        "format-connected": "\uf293  {num_connections}",
-        "format-disabled":  "\uf294",
-        "format-off":       "\uf294",
-        "tooltip-format":           "Bluetooth on",
-        "tooltip-format-connected": "{num_connections} device(s)\n{device_enumerate}",
-        "tooltip-format-enumerate-connected": "{device_alias}",
-        "tooltip-format-disabled":  "Bluetooth disabled",
-        "tooltip-format-off":       "Bluetooth off",
-        "on-click": "blueman-manager"
-    },
-
-    "network": {
-        "format-wifi":         "{icon}  {signalStrength}%",
-        "format-ethernet":     "\udb82\udf90",
-        "format-disconnected": "\uf6ac",
-        "format-icons":        ["\udb82\udd2f", "\udb82\udd1f", "\udb82\udd22", "\udb82\udd25", "\udb82\udd28"],
-        "tooltip-format-wifi":         "{essid}\n{ifname}  \u00b7  {ipaddr}",
-        "tooltip-format-ethernet":     "{ifname}\n{ipaddr}",
-        "tooltip-format-disconnected": "Disconnected",
-        "on-click":            "nm-connection-editor"
-    },
-
-    "custom/vpn": {
-        "exec": "/home/remi/.local/bin/vpn-status",
-        "interval": 3,
-        "return-type": "json",
-        "on-click": "/home/remi/.local/bin/vpn-toggle",
-        "tooltip": true
-    },
-
-    "custom/power": {
-        "format": "\u23fb",
-        "tooltip": "Power menu",
-        "on-click": "/home/remi/.local/bin/power-menu"
-    },
-
-    "tray": {
-        "icon-size": 16,
-        "spacing": 8
-    }
+    "on-click": "pavucontrol",
+    "scroll-step": 5
+  },
+  "bluetooth": {
+    "format": "\uf293",
+    "format-connected": "\uf293  {num_connections}",
+    "format-disabled": "\uf05e",
+    "format-off": "\uf05e",
+    "tooltip-format": "Bluetooth on",
+    "tooltip-format-connected": "{num_connections} device(s)\n{device_enumerate}",
+    "tooltip-format-enumerate-connected": "{device_alias}",
+    "tooltip-format-disabled": "Bluetooth disabled",
+    "tooltip-format-off": "Bluetooth off",
+    "on-click": "blueman-manager"
+  },
+  "network": {
+    "format-wifi": "{icon}  {signalStrength}%",
+    "format-ethernet": "\uf0e8",
+    "format-disconnected": "\uf071",
+    "format-icons": [
+      "\uf012",
+      "\uf012",
+      "\uf012",
+      "\uf012",
+      "\uf012"
+    ],
+    "tooltip-format-wifi": "{essid}\n{ifname}  \u00b7  {ipaddr}",
+    "tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+    "tooltip-format-disconnected": "Disconnected",
+    "on-click": "nm-connection-editor"
+  },
+  "custom/vpn": {
+    "exec": "/home/remi/.local/bin/vpn-status",
+    "interval": 3,
+    "return-type": "json",
+    "on-click": "/home/remi/.local/bin/vpn-toggle",
+    "tooltip": true
+  },
+  "custom/power": {
+    "format": "\u23fb",
+    "tooltip": "Power menu",
+    "on-click": "/home/remi/.local/bin/power-menu"
+  },
+  "tray": {
+    "icon-size": 16,
+    "spacing": 8
+  }
 }
