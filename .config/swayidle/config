@@ -1,0 +1,9 @@
+# i7 desktop :
+# - 10 min : lock
+# - 11 min : écrans off
+# - pas de suspend automatique
+# - before-sleep : lock par sécurité si un suspend manuel/exceptionnel arrive
+timeout 600 '~/.local/bin/sway-lock'
+timeout 660 'swaymsg "output * power off"' resume 'swaymsg "output * power on"'
+before-sleep '~/.local/bin/sway-lock'
+lock '~/.local/bin/sway-lock'
