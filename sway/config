@@ -262,6 +262,10 @@ bindsym --to-code $mod+l exec ~/.local/bin/sway-lock
 bindsym --to-code $mod+space exec pkill wofi || wofi --show drun
 for_window [app_id="looking-glass-client"] inhibit_idle focus
 
+# Empêche swayidle de lock/éteindre les écrans quand Looking Glass est visible
+for_window [app_id="looking-glass-client"] inhibit_idle open
+bindsym $mod+Shift+t exec ~/.local/bin/toggle-vertical-screen
+
 # Dark theme GTK
 exec_always sh -c 'gsettings set org.gnome.desktop.interface color-scheme prefer-dark; gsettings set org.gnome.desktop.interface gtk-theme Adwaita-dark'
 
@@ -274,7 +278,11 @@ assign [app_id="obsidian"] workspace 5
 assign [app_id="qbz"] workspace 4
 assign [app_id="Proton Mail"] workspace 8
 for_window [app_id="Proton Mail"] move container to workspace number 8
-assign [app_id="Todoist"] workspace 9
+
+# Obsidian Web Clipper / Wayland
+# Obsidian est préchargé ; obsidian:// doit pouvoir activer
+# la fenêtre existante pour que le contenu via clipboard soit récupéré.
+focus_on_window_activation focus
 
 # ---- Autostart apps ----
 exec ~/.local/bin/sway-autostart
@@ -289,4 +297,16 @@ no_focus [title="^(Picture-in-Picture|Picture in picture|Image dans l.?image|Pic
 
 # Raccourci manuel de secours pour replacer le PiP.
 bindsym --to-code $mod+Shift+p exec ~/.local/bin/pip-place
+
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE PATH
+exec_always systemctl --user import-environment WAYLAND_DISPLAY DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP XDG_SESSION_TYPE PATH
 # END PIP RULES
+
+# Masque le curseur après 3 s d'inactivité
+seat * hide_cursor 3000
+
+
+### Todoist
+# Sway voit l'app_id réel en minuscules : todoist
+assign [app_id="todoist"] workspace number 9
+for_window [app_id="todoist"] move container to workspace number 9
